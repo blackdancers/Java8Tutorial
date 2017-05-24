@@ -1,0 +1,19 @@
+group 'com.java8.tutorial'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+//tasks.withType(Compile) {
+//    options.encoding = "UTF-8"
+//}
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}

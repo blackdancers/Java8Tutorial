@@ -17,10 +17,34 @@ public class Main01 {
         Arrays.sort(pArr, new PersonAgeComparator());
     }
 
+    /**
+     * @blog http://www.baeldung.com/java-tutorial
+     * @blog http://www.baeldung.com/java-8-sort-lambda
+     * @param pArr
+     */
     private static void sortByLambda(Person[] pArr) {
+        //1 Lambda改进
         Arrays.sort(pArr, (a, b) -> {
             return a.getBirthday().compareTo(b.getBirthday());
         });
+        //4 多条件排序
+        Arrays.sort(pArr, (a, b) -> {
+            if (a.getBirthday().equals(b.getBirthday())){
+                return a.getName().compareTo(b.getName());
+            }else
+                return a.getBirthday().compareTo(b.getBirthday());
+        });
+        //5 多条件组合排序 可以把多个Comparator链在一起（chain together）去建造更复杂的比较逻辑
+        Arrays.sort(pArr, Comparator.comparing(Person::getBirthday).thenComparing(Person::getName));
+
+        //2 Lambda改进去掉语句{}和;分号
+        Arrays.sort(pArr, (a, b) -> a.getBirthday().compareTo(b.getBirthday()));
+        //3 Lambda改进  提取排序
+        Arrays.sort(pArr, Comparator.comparing(Person::getBirthday));
+        //倒序
+//        Comparator<Person> comparator = Comparator.comparing(Person::getBirthday);
+//        Arrays.sort(pArr, comparator.reversed());
+
     }
 
     private static void sortByMethod(Person[] pArr) {
